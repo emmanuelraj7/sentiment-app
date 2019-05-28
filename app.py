@@ -25,7 +25,7 @@ def showSignUp():
     return render_template('sentiment_service.html')
 
 
-@app.route('/sentiment', methods=['POST'])
+@app.route('/sentiment', methods=['GET','POST'])
 def sentiment():
 	"""
 	Endpoint to predict sentiment for text
