@@ -30,12 +30,24 @@ def sentiment():
 	"""
 	Endpoint to predict sentiment for text
 	---
+	post:
 	parameters:
 	- name: Enter text
-	  in: query
+	  in: formData
 	  type: string
 	  description: Predict sentiment
 	  required: true
+	responses:
+	'200':
+		description: result
+		content:
+		  application/json:
+			schema:
+			  type: string
+			items:
+			  $ref:'#/sentiment'
+	'404':
+		description: Bad request
 	"""
 
 	if request.method == 'POST':
