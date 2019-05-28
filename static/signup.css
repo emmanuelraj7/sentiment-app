@@ -8,6 +8,11 @@ body {
   padding: 15px;
   margin: 0 auto;
 }
+
+.textarea-sentiment {
+ align-content: left;
+}
+
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
   margin-bottom: 50px;

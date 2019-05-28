@@ -1,8 +1,10 @@
 import pickle
 from flask import Flask, render_template, request
+from flasgger import Swagger
 from sklearn.feature_extraction.text import CountVectorizer
 
 app = Flask(__name__)
+swagger = Swagger(app)
 
 
 #opening artifacts
@@ -23,8 +25,19 @@ def showSignUp():
     return render_template('sentiment_service.html')
 
 
-@app.route('/sentiment', methods=['GET', 'POST'])
+@app.route('/sentiment', methods=['POST'])
 def sentiment():
+	"""
+	Endpoint to predict sentiment for text
+	---
+	parameters:
+	- name: Enter text
+	  in: query
+	  type: string
+	  description: Predict sentiment
+	  required: true
+	"""
+
 	if request.method == 'POST':
 		try:
 			texttoanalyze = request.form['texttoanalyze']
@@ -42,10 +55,10 @@ def sentiment():
 			confidence_score = ""
     
 
-	return render_template('sentiment_service.html', sentiment=model_output_sentiment, score=confidence_score, texttoanalyze=texttoanalyze)
+	return render_template('sentiment_service.html', sentiment=model_output_sentiment, score=confidence_score, texttoanalyze=texttoanalyze), model_output_sentiment
 
 
 
 
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=5000, debug=True)
+	app.run(debug=True)
